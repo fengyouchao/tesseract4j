@@ -55,6 +55,11 @@ public final class Tesseract {
 	protected static final Logger logger = LoggerFactory.getLogger(Tesseract.class);
 	
 	private static final String TESSERACT_COMMAND = "tesseract";
+	
+	/**
+	 * tesseract command path.
+	 */
+	private String commandPath = "";
 
 	/**
 	 * Image file.
@@ -214,7 +219,7 @@ public final class Tesseract {
 			throw new TesseractException(ioe.getMessage());
 		}
 		
-		final String command = TESSERACT_COMMAND + " " 
+		final String command = commandPath+TESSERACT_COMMAND + " " 
 				+ imageFile.getAbsolutePath() + " "									//image name
 				+ outputParameter + " " 							    			//output base
 				+ (language == null ? "" : " -l "+language.getValue()) + " "  		// -l parameter
@@ -255,4 +260,16 @@ public final class Tesseract {
 		}
 		return value;
 	}
+
+	public String getCommandPath() {
+		return commandPath;
+	}
+
+	public void setCommandPath(String commandPath) {
+		if(commandPath == null){
+			commandPath = "";
+		}
+		this.commandPath = commandPath;
+	}
+	
 }
